@@ -6,9 +6,8 @@ import {Shell} from '../shell/services';
 
 const routes: Routes = [
   Shell.childRoutes([
-    {path: '', component: HomeComponent},
-
-    {path: '', redirectTo: '', pathMatch: 'full'},
+    // {path: '', redirectTo: '', pathMatch: 'full'},
+    {path: '', component: HomeComponent}
   ]),
 ];
 
