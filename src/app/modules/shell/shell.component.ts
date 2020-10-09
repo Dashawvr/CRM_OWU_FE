@@ -1,13 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
+import {onMainContentChange} from './animations/animations';
+import {SidenavService} from './services/sidenav.service';
 
 @Component({
   selector: 'app-shell',
   templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.css']
+  styleUrls: ['./shell.component.css'],
+  animations: [onMainContentChange]
 })
 export class ShellComponent implements OnInit {
 
-  constructor() { }
+  onSideNavChange: boolean;
+
+  constructor(
+    private sidenavService: SidenavService
+  ) {
+    this.sidenavService.sideNavState.subscribe(res => {
+      console.log(res);
+      this.onSideNavChange = res;
+    });
+  }
 
   ngOnInit(): void {
   }

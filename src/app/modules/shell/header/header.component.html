@@ -1,0 +1,33 @@
+<div fxFlex="row"
+     fxLayoutAlign="space-between center"
+     fxLayoutGap="10px"
+     class="header">
+  <div fxLayoutAlign="center center">
+    <button mat-icon-button
+            (click)="sidenav.toggle()">
+      <img src="assets/logo.svg"
+           alt="">
+    </button>
+    <p style="margin:0;font-size: 23px">CRM</p>
+  </div>
+  <span class="spacer"></span>
+  <div>
+    <button mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu">
+      <mat-icon>account_circle</mat-icon>
+      <mat-icon>expand_more</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <span>
+          Ви увійшли як <b>Yuriy Dev</b>
+        </span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Вийти</span>
+      </button>
+    </mat-menu>
+  </div>
+</div>
