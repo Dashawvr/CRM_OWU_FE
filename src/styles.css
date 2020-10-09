@@ -8,3 +8,11 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+p {
+  margin: 0 !important;
+}
+
+button {
+  outline: none !important;
+}
