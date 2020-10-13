@@ -1,13 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {finalize} from 'rxjs/operators';
+
+import {AuthenticationService} from '../services';
+import {Logger, untilDestroyed} from '../../../core';
+
+const log = new Logger('Login');
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   error: string | undefined;
   loginForm!: FormGroup;
   isLoading = false;
@@ -16,7 +22,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    // private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService
   ) {
     this.createForm();
   }
@@ -24,27 +30,30 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+  }
+
   login(): void {
-    // this.isLoading = true;
-    // const login$ = this.authenticationService.login(this.loginForm.value);
-    // login$
-    //   .pipe(
-    //     finalize(() => {
-    //       this.loginForm.markAsPristine();
-    //       this.isLoading = false;
-    //     }),
-    //     untilDestroyed(this)
-    //   )
-    //   .subscribe(
-    //     (credentials) => {
-    //       log.debug(`${credentials.username} successfully logged in`);
-    //       this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
-    //     },
-    //     (error) => {
-    //       log.debug(`Login error: ${error}`);
-    //       this.error = error;
-    //     }
-    //   );
+    this.isLoading = true;
+    const login$ = this.authenticationService.login(this.loginForm.value);
+    login$
+      .pipe(
+        finalize(() => {
+          this.loginForm.markAsPristine();
+          this.isLoading = false;
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe(
+        (credentials) => {
+          log.debug(`${credentials.username} successfully logged in`);
+          this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], {replaceUrl: true});
+        },
+        (error) => {
+          log.debug(`Login error: ${error}`);
+          this.error = error;
+        }
+      );
   }
 
   private createForm(): void {
@@ -54,4 +63,6 @@ export class LoginComponent implements OnInit {
       remember: true,
     });
   }
+
+
 }

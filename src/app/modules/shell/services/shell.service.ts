@@ -1,7 +1,7 @@
-import { Routes, Route } from '@angular/router';
+import {Routes, Route} from '@angular/router';
 
-// import { AuthenticationGuard } from '@app/auth';
-import { ShellComponent } from '../shell.component';
+import {ShellComponent} from '../shell.component';
+import {AuthenticationGuard} from '../../auth/guards';
 
 export class Shell {
   static childRoutes(routes: Routes): Route {
@@ -9,8 +9,8 @@ export class Shell {
       path: '',
       component: ShellComponent,
       children: routes,
-      // canActivate: [AuthenticationGuard],
-      data: { reuse: true },
+      canActivate: [AuthenticationGuard],
+      data: {reuse: true},
     };
   }
 }
