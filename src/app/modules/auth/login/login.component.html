@@ -1,1 +1,71 @@
-<p>login works!</p>
+<div class="login-container bg-light">
+  <div class="login-box">
+    <img src="assets/logo.svg"
+         class="w-25"
+         alt=""
+    >
+    <div>
+    </div>
+    <div class="container">
+      <div class="card col-md-6 mt-3 mx-auto">
+        <div class="card-body">
+          <h4 class="card-title text-center">
+            <i class="far fa-3x fa-user-circle text-muted"></i>
+          </h4>
+          <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
+            <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+              Неправильне ім’я користувача чи пароль.
+            </div>
+            <div class="form-group">
+              <label class="d-block">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="username"
+                  autocomplete="username"
+                  [placeholder]="'Ім\'я користувача'"
+                />
+                <span hidden translate>Ім'я користувача</span>
+                <small
+                  [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched"
+                  class="text-danger"
+                  translate
+                >
+                  Ім'я користувача обов'язкове
+                </small>
+              </label>
+              <label class="d-block">
+                <input
+                  type="password"
+                  class="form-control"
+                  formControlName="password"
+                  autocomplete="current-password"
+                  [placeholder]="'Пароль'"
+                  required
+                />
+                <span hidden translate>Пароль</span>
+                <small
+                  [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched"
+                  class="text-danger"
+                  translate
+                >
+                  Пароль є обов'язковим
+                </small>
+              </label>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input" formControlName="remember"/>
+                  <span translate>Пам'ятай мене</span>
+                </label>
+              </div>
+            </div>
+            <button class="btn btn-primary w-100" type="submit" [disabled]="loginForm.invalid || isLoading">
+              <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+              <span translate>Увійти</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
