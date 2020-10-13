@@ -4,7 +4,7 @@ import {marker} from '@biesbjerg/ngx-translate-extract-marker';
 
 import {GroupsComponent} from './groups.component';
 import {RouterTitle} from '../../constants';
-import {Shell} from '../shell/services';
+import {Shell} from '../shell/services/shell.service';
 
 const routes: Routes = [
   Shell.childRoutes([

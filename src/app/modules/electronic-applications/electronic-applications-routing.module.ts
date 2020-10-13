@@ -2,9 +2,9 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {marker} from '@biesbjerg/ngx-translate-extract-marker';
 
-import {Shell} from '../shell/services';
-import {RouterTitle} from '../../constants';
 import {ElectronicApplicationsComponent} from './electronic-applications.component';
+import {Shell} from '../shell/services/shell.service';
+import {RouterTitle} from '../../constants';
 
 const routes: Routes = [
   Shell.childRoutes([

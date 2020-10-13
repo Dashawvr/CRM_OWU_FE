@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {SidenavService} from '../services';
+import {SidenavService} from '../services/sidenav.service';
 import {animateText, onSideNavChange} from '../animations/animations';
 
 interface Page {
