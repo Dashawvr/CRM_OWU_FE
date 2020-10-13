@@ -23,15 +23,15 @@
                   class="form-control"
                   formControlName="username"
                   autocomplete="username"
-                  [placeholder]="'Ім\'я користувача'"
+                  [placeholder]="'Емайл'"
                 />
-                <span hidden translate>Ім'я користувача</span>
+                <span hidden translate>Емайл</span>
                 <small
                   [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched"
                   class="text-danger"
                   translate
                 >
-                  Ім'я користувача обов'язкове
+                  Емайл обов'язковий
                 </small>
               </label>
               <label class="d-block">

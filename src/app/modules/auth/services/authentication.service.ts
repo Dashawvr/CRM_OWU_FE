@@ -16,17 +16,14 @@ export class AuthenticationService {
   }
 
   login(context: LoginContext): Observable<Credentials> {
-    // Replace by proper authentication call
     const data = {
-      username: context.username,
-      token: '123456',
+      email: context.email
     };
     this.credentialsService.setCredentials(data, context.remember);
     return of(data);
   }
 
   logout(): Observable<boolean> {
-    // Customize credentials invalidation here
     this.credentialsService.setCredentials();
     return of(true);
   }
