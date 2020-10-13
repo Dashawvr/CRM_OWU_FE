@@ -9,3 +9,7 @@
   object-fit: cover;
   border-radius: 50%;
 }
+
+.active-item {
+  background-color: #3333331a;
+}

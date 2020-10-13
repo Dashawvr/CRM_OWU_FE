@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {SidenavService} from '../services/sidenav.service';
+import {SidenavService} from '../services';
 import {animateText, onSideNavChange} from '../animations/animations';
 
 interface Page {
@@ -21,14 +21,14 @@ export class LeftMenuComponent implements OnInit {
   linkText = false;
 
   pages: Page[] = [
-    {name: 'Ел. Заявки', link: 'some-link', icon: 'email'},
-    {name: 'Заявки', link: 'some-link', icon: 'list_alt'},
-    {name: 'Завдання', link: 'some-link', icon: 'filter_frames'},
-    {name: 'Клієнти', link: 'some-link', icon: 'perm_identity'},
-    {name: 'Групи', link: 'some-link', icon: 'people_outline'},
-    {name: 'Курси', link: 'some-link', icon: 'school'},
-    {name: 'Платежі', link: 'some-link', icon: 'payment'},
-    {name: 'Міста', link: 'some-link', icon: 'location_city'},
+    {name: 'Завдання', link: '/tasks', icon: 'filter_frames'},
+    {name: 'Ел. Заяви', link: '/electronic-applications', icon: 'email'},
+    {name: 'Заявки', link: '/applications', icon: 'list_alt'},
+    {name: 'Платежі', link: '/payments', icon: 'payment'},
+    {name: 'Клієнти', link: '/clients', icon: 'perm_identity'},
+    {name: 'Групи', link: '/groups', icon: 'people_outline'},
+    {name: 'Курси', link: '/courses', icon: 'school'},
+    {name: 'Міста', link: '/cities', icon: 'location_city'},
   ];
 
   constructor(

@@ -4,18 +4,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {StoreModule} from '@ngrx/store';
 import {RouterModule} from '@angular/router';
-import {AppComponent} from './app.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import {AppRoutingModule} from './app-routing.module';
-import {ShellModule} from './modules/shell/shell.module';
 import {
   CoreModule,
   metaReducers,
   reducers
 } from './core';
-
+import {AppRoutingModule} from './app-routing.module';
+import {ShellModule} from './modules/shell/shell.module';
+import {AppComponent} from './app.component';
 import {environment} from '../environments/environment';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
