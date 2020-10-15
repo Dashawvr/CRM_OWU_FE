@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {finalize} from 'rxjs/operators';
 
-import {AuthenticationService} from '../services';
+import {AuthenticationService, TokensService} from '../services';
 import {Logger, untilDestroyed} from '../../../core';
 
 const log = new Logger('Login');
@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   login(): void {
     this.isLoading = true;
     const login$ = this.authenticationService.login(this.loginForm.value);
+
     login$
       .pipe(
         finalize(() => {
@@ -46,7 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (credentials) => {
-          log.debug(`${credentials.email} successfully logged in`);
+          log.debug(`${credentials} successfully logged in`);
           this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], {replaceUrl: true});
         },
         (error) => {
@@ -58,7 +59,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private createForm(): void {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required],
       remember: true,
     });

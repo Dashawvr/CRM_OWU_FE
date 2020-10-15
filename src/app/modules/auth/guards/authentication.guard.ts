@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 
 import {Logger} from '../../../core/services';
-import {CredentialsService} from '../services';
+import {TokensService} from '../services';
 
 const log = new Logger('AuthenticationGuard');
 
@@ -12,11 +12,11 @@ const log = new Logger('AuthenticationGuard');
 export class AuthenticationGuard implements CanActivate {
   constructor(
     private router: Router,
-    private credentialsService: CredentialsService) {
+    private tokensService: TokensService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.credentialsService.isAuthenticated()) {
+    if (this.tokensService.isAuthenticated()) {
       return true;
     }
 

@@ -5,6 +5,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {StoreModule} from '@ngrx/store';
 import {RouterModule} from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {HttpClientModule} from '@angular/common/http';
 
 import {
   CoreModule,
@@ -24,6 +25,7 @@ import {environment} from '../environments/environment';
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule,
+    HttpClientModule,
     CoreModule,
     ShellModule,
     StoreModule.forRoot(reducers, {metaReducers}),

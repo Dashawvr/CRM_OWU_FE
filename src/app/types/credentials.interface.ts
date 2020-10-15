@@ -1,3 +1,7 @@
+import {UserRole} from '../constants';
+
 export interface Credentials {
-  email: string;
+  name: string;
+  surname: string;
+  role: UserRole;
 }
