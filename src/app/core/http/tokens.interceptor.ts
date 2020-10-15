@@ -42,6 +42,7 @@ export class TokensInterceptor implements HttpInterceptor {
       if (error.status === 403) {
         this.isRefreshing = false;
         // this.dialog.closeAll();
+        this.tokensService.setTokens();
         this.router.navigate(['auth', 'login'], {
           queryParams: {
             sessionFiled: true
