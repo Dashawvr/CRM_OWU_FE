@@ -19,9 +19,9 @@
       <mat-icon>expand_more</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item *ngIf="authUserCredentials">
         <span>
-          Ви увійшли як <b>Yuriy Dev</b>
+          Ви увійшли як <b>{{authUserCredentials.name}} {{authUserCredentials.surname}}</b>
         </span>
       </button>
       <button mat-menu-item (click)="logout()">

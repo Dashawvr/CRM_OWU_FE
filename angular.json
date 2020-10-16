@@ -126,6 +126,7 @@
   },
   "defaultProject": "CRMFE",
   "cli": {
-    "analytics": "63610ced-1224-49cc-8f52-79d6fb122c23"
+    "analytics": "63610ced-1224-49cc-8f52-79d6fb122c23",
+    "defaultCollection": "@ngrx/schematics"
   }
 }

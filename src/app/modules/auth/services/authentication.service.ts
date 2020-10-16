@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {map, shareReplay, tap} from 'rxjs/operators';
 
 import {LoginContext, Tokens} from '../../../types';
 import {TokensService} from './tokens.service';
-import {map, tap} from 'rxjs/operators';
 
 
 @Injectable({
@@ -18,10 +18,11 @@ export class AuthenticationService {
   ) {
   }
 
-  login({email, password, remember}: LoginContext): Observable<any> {
-    return this.http.post<any>('/auth', {email, password}).pipe(
+  login({email, password, remember}: LoginContext): Observable<Tokens> {
+    return this.http.post<{ data: Tokens }>('/auth', {email, password}).pipe(
       map(res => res.data),
       tap(tokens => this.tokensService.setTokens(tokens, remember)),
+      shareReplay()
     );
   }
 
@@ -30,12 +31,15 @@ export class AuthenticationService {
       .pipe(
         map(res => res.data),
         tap(tokens => this.tokensService.setTokens(tokens)),
+        shareReplay()
       );
   }
 
   logout(): Observable<void> {
     return this.http.post<void>('/auth/logout', null).pipe(
-      tap(() => this.tokensService.setTokens()));
+      tap(() => this.tokensService.setTokens()),
+      shareReplay()
+    );
   }
 
 }
