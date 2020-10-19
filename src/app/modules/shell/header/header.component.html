@@ -19,11 +19,18 @@
       <mat-icon>expand_more</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item *ngIf="authUserCredentials">
+      <ng-container *ngIf="authUserCredentials">
+        <button mat-menu-item>
         <span>
           Ви увійшли як <b>{{authUserCredentials.name}} {{authUserCredentials.surname}}</b>
         </span>
-      </button>
+        </button>
+        <button mat-menu-item>
+        <span>
+          Роль <b>{{authUserCredentials.role}}</b>
+        </span>
+        </button>
+      </ng-container>
       <button mat-menu-item (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>
         <span>Вийти</span>
