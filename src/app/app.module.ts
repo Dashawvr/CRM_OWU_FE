@@ -3,19 +3,17 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
 import {RouterModule} from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
 
-import {
-  CoreModule,
-  metaReducers,
-  reducers
-} from './core';
+import {CoreModule} from './core';
 import {AppRoutingModule} from './app-routing.module';
 import {ShellModule} from './modules/shell/shell.module';
 import {AppComponent} from './app.component';
 import {environment} from '../environments/environment';
+import {authReducer} from './modules/auth/reducers';
 
 @NgModule({
   declarations: [
@@ -28,8 +26,10 @@ import {environment} from '../environments/environment';
     HttpClientModule,
     CoreModule,
     ShellModule,
-    StoreModule.forRoot(reducers, {metaReducers}),
+    // reducers, {metaReducers}
+    StoreModule.forRoot({auth: authReducer}),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    EffectsModule.forRoot([]),
     AppRoutingModule,
     NgbModule
   ],

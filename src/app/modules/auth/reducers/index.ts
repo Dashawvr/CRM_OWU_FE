@@ -24,5 +24,6 @@ export const authReducer = createReducer(
     return {
       credentials: action.credentials
     };
-  })
+  }),
+  on(AuthActions.logout, () => initialAuthState)
 );

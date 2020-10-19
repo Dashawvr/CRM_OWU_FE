@@ -1,12 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatSidenav} from '@angular/material/sidenav';
 import {Router} from '@angular/router';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 
 import {AuthenticationService} from '../../auth/services';
 import {Credentials} from '../../../types';
 import {AppState} from '../../../core/reducers';
-import {map} from 'rxjs/operators';
+import {authCredentials} from '../../auth/auth.selectors';
+import {tap} from 'rxjs/operators';
+import {logout} from '../../auth/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -29,13 +31,17 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.store
       .pipe(
-        // TODO types
-        // @ts-ignore
-        map(state => state.auth.credentials)
-      ).subscribe(credentials => this.authUserCredentials = credentials);
+        select(authCredentials)
+      )
+      .subscribe(credentials => this.authUserCredentials = credentials);
   }
 
   logout(): void {
-    this.authenticationService.logout().subscribe(() => this.router.navigate(['auth'], {replaceUrl: true}));
+    this.authenticationService
+      .logout()
+      .pipe(
+        tap(() => this.store.dispatch(logout()))
+      )
+      .subscribe(() => this.router.navigate(['auth'], {replaceUrl: true}));
   }
 }

@@ -14,12 +14,9 @@ export class ShellComponent implements OnInit {
   onSideNavChange: boolean;
 
   constructor(
-    private sidenavService: SidenavService
+    private sidenavService: SidenavService,
   ) {
-    this.sidenavService.sideNavState.subscribe(res => {
-      console.log(res);
-      this.onSideNavChange = res;
-    });
+    this.sidenavService.sideNavState.subscribe(res => this.onSideNavChange = res);
   }
 
   ngOnInit(): void {

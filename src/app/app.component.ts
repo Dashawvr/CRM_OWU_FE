@@ -1,9 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
 import {filter, map, switchMap} from 'rxjs/operators';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 
-import {untilDestroyed} from './core';
+import {AppState, untilDestroyed} from './core';
+import {login} from './modules/auth/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -16,10 +18,17 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleService: Title,
+    private store: Store<AppState>
   ) {
   }
 
   ngOnInit(): void {
+
+    const authCredentials = localStorage.getItem('credentials');
+
+    if (authCredentials) {
+      this.store.dispatch(login({credentials: JSON.parse(authCredentials)}));
+    }
 
     const onNavigationEnd = this.router.events.pipe(filter((event) => event instanceof NavigationEnd));
 
