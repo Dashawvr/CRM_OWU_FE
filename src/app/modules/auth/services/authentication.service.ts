@@ -41,4 +41,8 @@ export class AuthenticationService {
       shareReplay()
     );
   }
+
+  forgotPassword(email: string): Observable<void> {
+    return this.http.post<void>('/auth/forgotPassword', {email});
+  }
 }

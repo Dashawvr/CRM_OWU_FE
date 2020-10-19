@@ -9,11 +9,13 @@ import {LoginComponent} from './login/login.component';
 import {AuthRoutingModule} from './auth-routing.module';
 import * as fromAuth from './reducers';
 import {AuthEffects} from './auth.effects';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
     AuthComponent,
-    LoginComponent
+    LoginComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,

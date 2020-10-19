@@ -9,5 +9,6 @@ export enum RouterTitle {
   PAYMENTS = 'Платежі',
   CITIES = 'Міста',
   TASKS = 'Завдання',
+  FORGOT_PASSWORD = 'Забули пароль',
   NOT_FOUND = '404'
 }
