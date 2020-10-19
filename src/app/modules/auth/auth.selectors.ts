@@ -9,3 +9,8 @@ export const authCredentials = createSelector(
   selectAuthState,
   (auth) => auth.credentials
 );
+
+export const isLoggedIn = createSelector(
+  authCredentials,
+  credentials => !!credentials
+);

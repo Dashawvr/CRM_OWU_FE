@@ -3,8 +3,7 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {tap} from 'rxjs/operators';
 
 import {AuthActions} from './action.types';
-
-const credentialsKey = 'credentials';
+import {CredentialsService} from './services';
 
 @Injectable()
 export class AuthEffects {
@@ -13,15 +12,18 @@ export class AuthEffects {
       this.actions$
         .pipe(
           ofType(AuthActions.login),
-          tap(action => localStorage.setItem(credentialsKey, JSON.stringify(action.credentials)))),
+          tap(action => this.credentialsService.setCredentials(action.credentials))),
     {dispatch: false});
 
   logout$ = createEffect(() => this.actions$
       .pipe(
         ofType(AuthActions.logout),
-        tap(() => localStorage.removeItem(credentialsKey))),
+        tap(() => this.credentialsService.setCredentials())),
     {dispatch: false});
 
-  constructor(private actions$: Actions) {
+  constructor(
+    private actions$: Actions,
+    private credentialsService: CredentialsService
+  ) {
   }
 }

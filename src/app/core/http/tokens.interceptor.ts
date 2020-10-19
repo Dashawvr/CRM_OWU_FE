@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, filter, switchMap, take} from 'rxjs/operators';
 
 import {Tokens} from '../../types';
-import {AuthenticationService, TokensService} from '../../modules/auth/services';
+import {AuthenticationService, CredentialsService, TokensService} from '../../modules/auth/services';
 
 @Injectable()
 export class TokensInterceptor implements HttpInterceptor {
@@ -14,18 +14,20 @@ export class TokensInterceptor implements HttpInterceptor {
 
   constructor(
     private tokensService: TokensService,
+    private credentialsService: CredentialsService,
     private authService: AuthenticationService,
     private router: Router
   ) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    const isAuthenticated = this.tokensService.isAuthenticated();
+    const hasTokens = !!this.tokensService.getTokens();
+
     const tokens = this.tokensService.getTokens();
 
     if (this.isRefreshing) {
       request = this.addToken(request, tokens.refresh_token);
-    } else if (isAuthenticated) {
+    } else if (hasTokens) {
       request = this.addToken(request, tokens.access_token);
     } else {
       return next.handle(request);
@@ -37,13 +39,12 @@ export class TokensInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse && error.status === 401) {
           return this.handle401Error(request, next);
         }
-        // this.customSnackbarService.open(error.error.error.message, 'error');
+        // maybe log error here
       }
       if (error.status === 403) {
         this.isRefreshing = false;
-        // this.dialog.closeAll();
         this.tokensService.setTokens();
-        this.router.navigate(['auth', 'login'], {
+        this.router.navigate(['auth'], {
           queryParams: {
             sessionFiled: true
           }

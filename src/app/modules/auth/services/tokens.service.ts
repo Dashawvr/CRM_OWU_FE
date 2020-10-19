@@ -17,10 +17,6 @@ export class TokensService {
     }
   }
 
-  isAuthenticated(): boolean {
-    return !!this.tokens;
-  }
-
   getTokens(): Tokens | null {
     return this.tokens;
   }

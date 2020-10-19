@@ -1,9 +1,13 @@
 import {Injectable} from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 
 import {Logger} from '../../../core/services';
 import {TokensService} from '../services';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
+import {select, Store} from '@ngrx/store';
+import {AppState} from '../../../core/reducers';
+import {isLoggedIn} from '../auth.selectors';
+import {tap} from 'rxjs/operators';
 
 const log = new Logger('AuthenticationGuard');
 
@@ -13,16 +17,21 @@ const log = new Logger('AuthenticationGuard');
 export class AuthenticationGuard implements CanActivate {
   constructor(
     private router: Router,
-    private tokensService: TokensService) {
+    private tokensService: TokensService,
+    private store: Store<AppState>
+  ) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    if (this.tokensService.isAuthenticated()) {
-      return of(true);
-    }
-
-    log.debug('Not authenticated, redirecting and adding redirect url...');
-    this.router.navigate(['auth'], {queryParams: {redirect: state.url}, replaceUrl: true});
-    return of(false);
+    return this.store
+      .pipe(
+        select(isLoggedIn),
+        tap(loggedIn => {
+          if (!loggedIn) {
+            log.debug('Not authenticated, redirecting and adding redirect url...');
+            this.router.navigateByUrl('/auth');
+          }
+        })
+      );
   }
 }

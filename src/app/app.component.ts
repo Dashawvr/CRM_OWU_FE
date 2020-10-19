@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
 import {filter, map, switchMap} from 'rxjs/operators';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 
 import {AppState, untilDestroyed} from './core';
+import {AuthenticationService, CredentialsService} from './modules/auth/services';
 import {login} from './modules/auth/auth.actions';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-root',
@@ -18,18 +19,29 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleService: Title,
+    private authenticationService: AuthenticationService,
+    private credentialsService: CredentialsService,
     private store: Store<AppState>
   ) {
   }
 
   ngOnInit(): void {
+    this.checkIsUserLoggedIn();
+    this.urlTitleChangeSubscription();
+  }
 
-    const authCredentials = localStorage.getItem('credentials');
+  ngOnDestroy(): void {
+  }
 
-    if (authCredentials) {
-      this.store.dispatch(login({credentials: JSON.parse(authCredentials)}));
+  checkIsUserLoggedIn(): void {
+    const credentials = this.credentialsService.getCredentials();
+
+    if (credentials) {
+      this.store.dispatch(login({credentials}));
     }
+  }
 
+  urlTitleChangeSubscription(): void {
     const onNavigationEnd = this.router.events.pipe(filter((event) => event instanceof NavigationEnd));
 
     onNavigationEnd.pipe(
@@ -50,9 +62,5 @@ export class AppComponent implements OnInit, OnDestroy {
           this.titleService.setTitle(title);
         }
       });
-
-  }
-
-  ngOnDestroy(): void {
   }
 }
