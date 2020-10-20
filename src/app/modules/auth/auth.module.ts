@@ -10,12 +10,14 @@ import {AuthRoutingModule} from './auth-routing.module';
 import * as fromAuth from './reducers';
 import {AuthEffects} from './auth.effects';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
     AuthComponent,
     LoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,

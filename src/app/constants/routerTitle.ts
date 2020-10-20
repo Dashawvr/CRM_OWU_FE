@@ -10,5 +10,6 @@ export enum RouterTitle {
   CITIES = 'Міста',
   TASKS = 'Завдання',
   FORGOT_PASSWORD = 'Забули пароль',
+  RESET_PASSWORD = 'Відновлення паролю',
   NOT_FOUND = '404'
 }

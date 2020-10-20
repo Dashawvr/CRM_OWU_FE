@@ -45,4 +45,9 @@ export class AuthenticationService {
   forgotPassword(email: string): Observable<void> {
     return this.http.post<void>('/auth/forgotPassword', {email});
   }
+
+  // tslint:disable-next-line:variable-name
+  resetPassword(reset_token: string, password): Observable<void> {
+    return this.http.post<void>(`/auth/resetPassword/${reset_token}`, {password});
+  }
 }
