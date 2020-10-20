@@ -1,10 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Logger} from '../../../core/services';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {finalize} from 'rxjs/operators';
+
+import {CustomError} from '../../../types';
+import {Logger} from '../../../core/services';
 import {AuthenticationService} from '../services';
 import {untilDestroyed} from '../../../core';
-import {finalize} from 'rxjs/operators';
 
 const log = new Logger('Forgot password');
 
@@ -48,9 +50,9 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
           log.debug(`email for password reset successfully sent`);
           this.router.navigateByUrl('/auth');
         },
-        (error) => {
+        (error: CustomError) => {
           log.debug(`Login error: ${error}`);
-          this.error = error;
+          this.error = error.error.message;
         });
   }
 

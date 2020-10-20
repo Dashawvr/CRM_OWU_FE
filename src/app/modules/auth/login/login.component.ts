@@ -4,6 +4,7 @@ import {Store} from '@ngrx/store';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {finalize, switchMap, tap} from 'rxjs/operators';
 
+import {CustomError} from '../../../types';
 import {AuthenticationService} from '../services';
 import {AppState, Logger, untilDestroyed} from '../../../core';
 import {UsersService} from '../../users/services/users.service';
@@ -59,9 +60,9 @@ export class LoginComponent implements OnInit, OnDestroy {
           log.debug(`${credentials.name} successfully logged in`);
           this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], {replaceUrl: true});
         },
-        (error) => {
+        (error: CustomError) => {
           log.debug(`Login error: ${error}`);
-          this.error = error;
+          this.error = error.error.message;
         }
       );
   }
