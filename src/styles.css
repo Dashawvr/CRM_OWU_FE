@@ -16,3 +16,8 @@ p {
 button {
   outline: none !important;
 }
+
+.table-container {
+  overflow: auto;
+  height: 81vh;
+}

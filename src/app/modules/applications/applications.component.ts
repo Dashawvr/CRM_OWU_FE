@@ -1,8 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {HttpClient} from '@angular/common/http';
 
-import {CreateApplicationFormDialogComponent} from '../../shared/entryComponents/create-application-form-dialog/create-application-form-dialog.component';
+import {ApplicationCreateFormDialogComponent} from '../../shared/entryComponents/application-create-form-dialog/application-create-form-dialog.component';
 
 export interface PeriodicElement {
   name: string;
@@ -50,8 +49,7 @@ export class ApplicationsComponent implements OnInit, AfterViewInit {
   // @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private _httpClient: HttpClient,
-    public dialog: MatDialog
+    private dialog: MatDialog
   ) {
   }
 
@@ -62,7 +60,7 @@ export class ApplicationsComponent implements OnInit, AfterViewInit {
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateApplicationFormDialogComponent, {
+    const dialogRef = this.dialog.open(ApplicationCreateFormDialogComponent, {
       width: '250px',
       disableClose: true
     });
