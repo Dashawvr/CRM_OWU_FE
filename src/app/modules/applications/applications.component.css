@@ -1,5 +1,8 @@
 .table-container {
   overflow: auto;
-  height: 73vh;
+  height: 81vh;
+}
+
+.application-table {
   width: 100%;
 }
