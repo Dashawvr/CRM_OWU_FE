@@ -13,8 +13,12 @@ const routes: Routes = [
   {
     path: '', component: AuthComponent, children: [
       {path: 'login', component: LoginComponent, data: {title: marker(RouterTitle.LOGIN)}},
-      {path: 'forgot-password', component: ForgotPasswordComponent, data: {title: marker(RouterTitle.FORGOT_PASSWORD)}},
-      {path: 'forgot-password/:reset_token', component: ResetPasswordComponent, data: {title: marker(RouterTitle.RESET_PASSWORD)}}
+      {
+        path: 'forgot-password', data: {title: marker(RouterTitle.FORGOT_PASSWORD)}, children: [
+          {path: '', component: ForgotPasswordComponent},
+          {path: ':reset_token', component: ResetPasswordComponent, data: {title: marker(RouterTitle.RESET_PASSWORD)}}
+        ]
+      }
     ]
   }
 ];
