@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../services';
 import {finalize, map} from 'rxjs/operators';
 import {untilDestroyed} from '../../../core';
-import {CustomError} from '../../../types';
+import {CustomError} from '../../../shared/types';
 
 const log = new Logger('Reset-password');
 

@@ -12,6 +12,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 
 import {ApplicationsComponent} from './applications.component';
 import {ApplicationsRoutingModule} from './applications-routing.module';
+import {SharedModule} from '../../shared/shared.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {ApplicationsRoutingModule} from './applications-routing.module';
   imports: [
     CommonModule,
     ApplicationsRoutingModule,
+    SharedModule,
     MatCardModule,
     MatButtonModule,
     MatChipsModule,

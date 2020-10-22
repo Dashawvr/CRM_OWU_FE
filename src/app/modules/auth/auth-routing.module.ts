@@ -5,7 +5,7 @@ import {marker} from '@biesbjerg/ngx-translate-extract-marker';
 import {AuthComponent} from './auth.component';
 import {LoginComponent} from './login/login.component';
 import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
-import {RouterTitle} from '../../constants';
+import {RouterTitle} from '../../shared/constants';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 
 const routes: Routes = [

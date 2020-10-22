@@ -1,5 +1,8 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {HttpClient} from '@angular/common/http';
+
+import {CreateApplicationFormDialogComponent} from '../../shared/entryComponents/create-application-form-dialog/create-application-form-dialog.component';
 
 export interface PeriodicElement {
   name: string;
@@ -37,7 +40,8 @@ export class ApplicationsComponent implements OnInit, AfterViewInit {
   // @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private _httpClient: HttpClient
+    private _httpClient: HttpClient,
+    public dialog: MatDialog
   ) {
   }
 
@@ -45,5 +49,16 @@ export class ApplicationsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+  }
+
+  openCreateDialog(): void {
+    const dialogRef = this.dialog.open(CreateApplicationFormDialogComponent, {
+      width: '250px',
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('The dialog was closed');
+    });
   }
 }

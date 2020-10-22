@@ -4,7 +4,7 @@ import {HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest} from '@ang
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, filter, switchMap, take} from 'rxjs/operators';
 
-import {Tokens} from '../../types';
+import {Tokens} from '../../shared/types';
 import {AuthenticationService, CredentialsService, TokensService} from '../../modules/auth/services';
 
 @Injectable()

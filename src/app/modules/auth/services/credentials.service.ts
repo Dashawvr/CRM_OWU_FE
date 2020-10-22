@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {Credentials} from '../../../types';
+import {Credentials} from '../../../shared/types';
 
 const credentialsKey = 'credentials';
 

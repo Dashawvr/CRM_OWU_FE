@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
-import {Credentials} from '../../../types';
+import {Credentials} from '../../../shared/types';
 import {map, shareReplay} from 'rxjs/operators';
 
 @Injectable({

@@ -4,7 +4,7 @@ import {marker} from '@biesbjerg/ngx-translate-extract-marker';
 
 import {HomeComponent} from './home.component';
 import {Shell} from '../shell/services/shell.service';
-import {RouterTitle} from '../../constants';
+import {RouterTitle} from '../../shared/constants';
 
 const routes: Routes = [
   Shell.childRoutes([

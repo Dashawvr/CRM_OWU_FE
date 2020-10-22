@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map, shareReplay, tap} from 'rxjs/operators';
 
-import {LoginContext, Tokens} from '../../../types';
+import {LoginContext, Tokens} from '../../../shared/types';
 import {TokensService} from './tokens.service';
 
 

@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {marker} from '@biesbjerg/ngx-translate-extract-marker';
 
 import {GroupsComponent} from './groups.component';
-import {RouterTitle} from '../../constants';
+import {RouterTitle} from '../../shared/constants';
 import {Shell} from '../shell/services/shell.service';
 
 const routes: Routes = [

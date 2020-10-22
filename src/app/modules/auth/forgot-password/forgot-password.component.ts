@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {finalize} from 'rxjs/operators';
 
-import {CustomError} from '../../../types';
+import {CustomError} from '../../../shared/types';
 import {Logger} from '../../../core/services';
 import {AuthenticationService} from '../services';
 import {untilDestroyed} from '../../../core';

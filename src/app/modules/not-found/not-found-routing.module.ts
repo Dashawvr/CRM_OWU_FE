@@ -3,7 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {marker} from '@biesbjerg/ngx-translate-extract-marker';
 
 import {NotFoundComponent} from './not-found.component';
-import {RouterTitle} from '../../constants';
+import {RouterTitle} from '../../shared/constants';
 
 const routes: Routes = [
   {path: '', component: NotFoundComponent, data: {title: marker(RouterTitle.NOT_FOUND)}}

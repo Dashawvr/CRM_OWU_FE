@@ -1,6 +1,6 @@
 import {createAction, props} from '@ngrx/store';
 
-import {Credentials} from '../../types';
+import {Credentials} from '../../shared/types';
 
 export const login = createAction(
   '[Login Page] User Login',

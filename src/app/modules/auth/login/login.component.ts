@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {finalize, switchMap, tap} from 'rxjs/operators';
 
-import {CustomError} from '../../../types';
+import {CustomError} from '../../../shared/types';
 import {AuthenticationService} from '../services';
 import {AppState, Logger, untilDestroyed} from '../../../core';
 import {UsersService} from '../../users/services/users.service';

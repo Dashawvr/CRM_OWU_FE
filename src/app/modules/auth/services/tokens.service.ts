@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {Tokens} from '../../../types';
+import {Tokens} from '../../../shared/types';
 
 const tokensKey = 'tokens';
 

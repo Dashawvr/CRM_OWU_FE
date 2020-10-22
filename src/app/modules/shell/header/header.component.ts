@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {select, Store} from '@ngrx/store';
 
 import {AuthenticationService, CredentialsService} from '../../auth/services';
-import {Credentials} from '../../../types';
+import {Credentials} from '../../../shared/types';
 import {AppState} from '../../../core/reducers';
 import {authCredentials} from '../../auth/auth.selectors';
 import {tap} from 'rxjs/operators';
