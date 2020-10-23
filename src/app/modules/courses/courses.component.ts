@@ -59,11 +59,12 @@ export class CoursesComponent implements OnInit {
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CourseCreateFormDialogComponent, {
-      width: '250px',
+      // width: '25%',
       disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(() => {
+    dialogRef.afterClosed().subscribe(course => {
+      console.log(course);
       console.log('The dialog was closed');
     });
   }

@@ -1,6 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+
+import {Course} from '../../types';
 
 @Component({
   selector: 'app-course-create-form-dialog',
@@ -14,7 +16,7 @@ export class CourseCreateFormDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CourseCreateFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public course: Course,
     private formBuilder: FormBuilder,
   ) {
     this.createForm();
@@ -34,4 +36,15 @@ export class CourseCreateFormDialogComponent implements OnInit {
     });
   }
 
+  get name(): AbstractControl {
+    return this.courseForm.controls.name;
+  }
+
+  get price(): AbstractControl {
+    return this.courseForm.controls.price;
+  }
+
+  create(): void {
+    this.dialogRef.close(this.courseForm.value);
+  }
 }
