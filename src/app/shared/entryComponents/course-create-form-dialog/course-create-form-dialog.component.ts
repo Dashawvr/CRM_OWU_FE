@@ -31,7 +31,7 @@ export class CourseCreateFormDialogComponent implements OnInit {
 
   private createForm(): void {
     this.courseForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.pattern('^([^0-9]*)$')]],
       price: ['', Validators.required],
     });
   }

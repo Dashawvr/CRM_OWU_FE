@@ -1,7 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import {filter, switchMap} from 'rxjs/operators';
 
 import {CourseCreateFormDialogComponent} from '../../shared/entryComponents/course-create-form-dialog/course-create-form-dialog.component';
+import {Logger, SnackBarService} from '../../core/services';
+import {CoursesService} from './services/courses.service';
+import {untilDestroyed} from '../../core';
+import {CreateMessage} from '../../shared/constants';
+
+const log = new Logger('Course');
 
 export interface PeriodicElement {
   name: string;
@@ -38,7 +45,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css']
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent implements OnInit, OnDestroy {
 
   fruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 
@@ -49,24 +56,30 @@ export class CoursesComponent implements OnInit {
   // @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private coursesService: CoursesService,
+    private snackBarService: SnackBarService
   ) {
   }
 
   ngOnInit(): void {
+  }
 
+  ngOnDestroy(): void {
   }
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CourseCreateFormDialogComponent, {
-      // width: '25%',
       disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(course => {
-      console.log(course);
-      console.log('The dialog was closed');
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(
+        filter(value => value),
+        switchMap(course => this.coursesService.save(course)),
+        untilDestroyed(this)
+      )
+      .subscribe(() => this.snackBarService.successMessage(CreateMessage.COURSE));
   }
-
 }

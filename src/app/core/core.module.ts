@@ -1,5 +1,6 @@
 import {NgModule, Optional, SkipSelf} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import {ErrorHandlerInterceptor} from './http/error-handler.interceptor';
@@ -9,7 +10,8 @@ import {TokensInterceptor} from './http/tokens.interceptor';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    MatSnackBarModule
   ],
   providers: [
     {
