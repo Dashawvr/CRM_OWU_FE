@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
@@ -7,6 +7,10 @@ import {EffectsModule} from '@ngrx/effects';
 import {RouterModule} from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
+
+import { registerLocaleData } from '@angular/common';
+import localeUk from '@angular/common/locales/uk';
+registerLocaleData(localeUk, 'uk-UA');
 
 import {CoreModule} from './core';
 import {AppRoutingModule} from './app-routing.module';
@@ -33,7 +37,9 @@ import {authReducer} from './modules/auth/reducers';
     AppRoutingModule,
     NgbModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'uk-UA' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
