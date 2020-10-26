@@ -3,3 +3,4 @@ export * from './loginContext.interface';
 export * from './tokens.interface';
 export * from './customError.interface';
 export * from './course.interface';
+export * from './serverData.interface';
