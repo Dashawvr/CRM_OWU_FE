@@ -10,7 +10,6 @@ import {Course} from '../../types';
   styleUrls: ['./course-create-form-dialog.component.css']
 })
 export class CourseCreateFormDialogComponent implements OnInit {
-  error: string | undefined;
   courseForm!: FormGroup;
   isLoading = false;
 
