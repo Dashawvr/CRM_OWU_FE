@@ -9,13 +9,19 @@ import {MatButtonModule} from '@angular/material/button';
 
 import {CourseCreateFormDialogComponent} from './entryComponents/course-create-form-dialog/course-create-form-dialog.component';
 import {ApplicationCreateFormDialogComponent} from './entryComponents/application-create-form-dialog/application-create-form-dialog.component';
+import { CoursesTableComponent } from './components/courses-table/courses-table.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSortModule} from '@angular/material/sort';
 
 
 @NgModule({
   declarations: [
     ApplicationCreateFormDialogComponent,
     CourseCreateFormDialogComponent,
-    ApplicationCreateFormDialogComponent
+    ApplicationCreateFormDialogComponent,
+    CoursesTableComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +29,11 @@ import {ApplicationCreateFormDialogComponent} from './entryComponents/applicatio
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatIconModule,
+    MatSortModule
   ],
   entryComponents: [
     ApplicationCreateFormDialogComponent,
@@ -31,7 +41,8 @@ import {ApplicationCreateFormDialogComponent} from './entryComponents/applicatio
   ],
   exports: [
     ApplicationCreateFormDialogComponent,
-    CourseCreateFormDialogComponent
+    CourseCreateFormDialogComponent,
+    CoursesTableComponent
   ]
 })
 export class SharedModule {

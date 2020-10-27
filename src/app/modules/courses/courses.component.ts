@@ -2,16 +2,16 @@ import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/c
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {catchError, filter, map, switchMap} from 'rxjs/operators';
-import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
-import {EMPTY} from 'rxjs';
+import {EMPTY, merge, of} from 'rxjs';
 
-import {Course, ServerData} from '../../shared/types';
+import {Course, CourseParams, ServerData} from '../../shared/types';
 import {CourseCreateFormDialogComponent} from '../../shared/entryComponents/course-create-form-dialog/course-create-form-dialog.component';
 import {Logger, SnackBarService} from '../../core/services';
 import {CoursesService} from './services/courses.service';
 import {untilDestroyed} from '../../core';
 import {CreateMessage} from '../../shared/constants';
+import {CoursesTableComponent} from '../../shared/components/courses-table/courses-table.component';
 
 const log = new Logger('Course');
 
@@ -22,15 +22,13 @@ const log = new Logger('Course');
 })
 export class CoursesComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  displayedColumns = ['index', 'name', 'price', 'createdAt', 'updatedAt', 'delete'];
+  fruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
   data: Course[] = [];
   resultsLength = 0;
 
-  fruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 
-
+  @ViewChild(CoursesTableComponent) table: CoursesTableComponent;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private dialog: MatDialog,
@@ -41,14 +39,23 @@ export class CoursesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.getDataFromResolver();
   }
 
   ngAfterViewInit(): void {
-    this.getDataFromResolver();
-    this.pageOnChange();
+    this.paginatorOrSortOnChange();
   }
 
   ngOnDestroy(): void {
+  }
+
+  get courseParams(): CourseParams {
+    return {
+      sort: this.table.sort.active,
+      order: this.table.sort.direction,
+      pageIndex: this.paginator.pageIndex,
+      pageSize: this.paginator.pageSize
+    };
   }
 
   openCreateDialog(): void {
@@ -79,9 +86,22 @@ export class CoursesComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(courses => this.data = courses);
   }
 
-  private pageOnChange(): void {
-    this.paginator.page.subscribe(res => {
-      console.log(res);
-    });
+  private paginatorOrSortOnChange(): void {
+    merge(this.table.sort.sortChange, this.paginator.page)
+      .pipe(
+        switchMap(() => this.coursesService.getAll(this.courseParams)),
+        map<ServerData<Course>, Course[]>(data => {
+          this.resultsLength = data.count;
+          return data.rows;
+        }),
+        catchError(() => of([])),
+        untilDestroyed(this)
+      ).subscribe(courses => this.data = courses);
+  }
+
+  delete(id: number): void {
+    this.coursesService
+      .delete(id)
+      .subscribe();
   }
 }

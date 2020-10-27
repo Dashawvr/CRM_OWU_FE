@@ -3,7 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 
-import {Course, ServerData} from '../../../shared/types';
+import {Course, CourseParams, ServerData} from '../../../shared/types';
+import {createHttpParams} from '../../../core/helpers/httpParams.helper';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,14 @@ export class CoursesService {
     return this.http.post<void>('/courses', course);
   }
 
-  getAll(): Observable<ServerData<Course>> {
-    return this.http.get<{ data: ServerData<Course> }>('/courses')
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>('/courses/' + id);
+  }
+
+  getAll(query?: CourseParams): Observable<ServerData<Course>> {
+    return this.http.get<{ data: ServerData<Course> }>('/courses', {
+      params: createHttpParams(query)
+    })
       .pipe(
         map(res => res.data),
         shareReplay()
